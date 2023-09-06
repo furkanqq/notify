@@ -1,29 +1,29 @@
-import React, { Component } from "react";
+import React, { useEffect } from 'react';
 
-class DesktopNotification extends Component {
-  constructor() {
-    super();
-    this.showNotification = this.showNotification.bind(this);
-  }
-
-  componentDidMount() {
-    if (!("Notification" in window)) {
-      console.log("Browser does not support desktop notification");
+function DesktopNotification() {
+  useEffect(() => {
+    if (!('Notification' in window)) {
+      console.log('Tarayıcı masaüstü bildirimleri desteklemiyor');
     } else {
       Notification.requestPermission();
     }
-  }
+  }, []);
 
-  showNotification() {
-    new Notification('Hello World')
-  }
+  const showNotification = () => {
+    var options = {
+      body: 'Merhabalar withdraw islemi yapmaya calisiyorum fakat button bir turlu tiklanilabilir hale gelmiyor her seyi dogru dolduruyorum aslinda isterseniz gorselde atabilirim nasil cikacagim isin icinden anlayamadim yardimci olur musunuz?',
+      icon: './newuser.png',
+      dir: 'ltr',
+    };
 
-  render() {
-    return (
-      <div>
-        <button onClick={this.showNotification}>Show notification</button></div>
-    );
-  }
+    new Notification('New Chat Notification', options);
+  };
+
+  return (
+    <div>
+      <button onClick={showNotification}>Bildirimi Göster</button>
+    </div>
+  );
 }
 
 export default DesktopNotification;
